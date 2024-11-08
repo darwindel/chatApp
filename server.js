@@ -10,7 +10,7 @@ const server = http.createServer(app);
 // Configure CORS for Socket.IO
 const io = socketIo(server, {
   cors: {
-    origin: 'http://localhost:3000',  // Allow React frontend to connect
+    origin: ['http://localhost:3000', 'http://192.168.4.64:3000'],  // Allow React frontend to connect
     methods: ['GET', 'POST'],         // Allow GET and POST methods
     allowedHeaders: ['Content-Type'], // Allow specific headers
   }
@@ -18,7 +18,7 @@ const io = socketIo(server, {
 
 // Enable Express CORS for HTTP routes
 app.use(cors({
-  origin: 'http://localhost:3000',  // Allow only React frontend
+  origin: ['http://localhost:3000', 'http://192.168.4.64:3000'],  // Allow only React frontend
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
 }));
@@ -47,6 +47,6 @@ io.on('connection', (socket) => {
 
 // Start the server
 const port = process.env.PORT || 5000;
-server.listen(port, () => {
+server.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
